@@ -14,6 +14,6 @@ FROM --platform=$TARGETPLATFORM nginx:alpine
 COPY docker/nginx-default.conf /etc/nginx/conf.d/default.conf
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=builder /app/public /usr/share/nginx/html
-ENV YACD_DEFAULT_BACKEND "http://127.0.0.1:12234"
+ENV YACD_DEFAULT_BACKEND "http://127.0.0.1:9090"
 ADD docker-entrypoint.sh /
 CMD ["/docker-entrypoint.sh"]
