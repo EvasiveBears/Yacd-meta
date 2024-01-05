@@ -2,7 +2,7 @@ FROM --platform=$BUILDPLATFORM node:alpine AS builder
 WORKDIR /app
 
 RUN npm i -g pnpm
-COPY pnpm-lock.yaml package.json .
+COPY pnpm-lock.yaml package.json ./
 RUN pnpm i
 
 COPY . .
@@ -14,6 +14,6 @@ FROM --platform=$TARGETPLATFORM nginx:alpine
 COPY docker/nginx-default.conf /etc/nginx/conf.d/default.conf
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=builder /app/public /usr/share/nginx/html
-ENV YACD_DEFAULT_BACKEND "http://127.0.0.1:9090"
+ENV YACD_DEFAULT_BACKEND "http://127.0.0.1:12234"
 ADD docker-entrypoint.sh /
 CMD ["/docker-entrypoint.sh"]
